@@ -18,8 +18,4 @@ public class SimpleSender {
         this.rabbitTemplate.convertAndSend("simpleQueue", sendMsg);
 	}
     
-    
-    
-    
-    
 }

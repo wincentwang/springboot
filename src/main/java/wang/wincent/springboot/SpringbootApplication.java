@@ -5,14 +5,10 @@ import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
-import org.springframework.boot.Banner.Mode;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @SpringBootApplication
 @Configuration
@@ -20,26 +16,29 @@ public class SpringbootApplication {
 	
 
 	public static void main(String[] args){
-		SpringApplication  app=new SpringApplication(SpringbootApplication.class);
-		app.setBannerMode(Mode.OFF);
-		app.run(SpringbootApplication.class, args);
+		SpringApplication.run(SpringbootApplication.class, args);
 	}
 	
+	/** RabbitMQ Queue **/
     @Bean
     public Queue simpleQueue() {
         return new Queue("simpleQueue");
     }
     
     @Bean
-    public Queue workQueue() {
-        return new Queue("workQueue");
+    public Queue oneToMany() {
+        return new Queue("oneToMany");
     }
     
     @Bean
-    public Queue exchangeQueue() {
-        return new Queue("exchangeQueue");
+    public Queue manyToMany() {
+        return new Queue("manyToMany");
     }
-  
+    
+    @Bean
+    public Queue userEntity() {
+        return new Queue("userEntityQueue");
+    }
     
     //===============以下是验证topic Exchange的队列==========
     @Bean
@@ -51,7 +50,7 @@ public class SpringbootApplication {
     public Queue queueMessages() {
         return new Queue("topic.messages");
     }
-  //===============以上是验证topic Exchange的队列==========
+    //===============以上是验证topic Exchange的队列==========
     
     
     //===============以下是验证Fanout Exchange的队列==========
@@ -69,13 +68,13 @@ public class SpringbootApplication {
     public Queue CMessage() {
         return new Queue("fanout.C");
     }
-    //===============以上是验证Fanout Exchange的队列==========
     
-
+    //===============以上是验证Fanout Exchange的队列==========
     @Bean
     TopicExchange exchange() {
         return new TopicExchange("exchange");
     }
+    
     @Bean
     FanoutExchange fanoutExchange() {
         return new FanoutExchange("fanoutExchange");
