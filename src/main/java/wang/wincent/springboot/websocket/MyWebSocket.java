@@ -3,7 +3,6 @@ package wang.wincent.springboot.websocket;
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -29,13 +28,12 @@ public class MyWebSocket {
     /**
      * 连接建立成功调用的方法*/
     @OnOpen
-    public void onOpen(Session session,HttpServletRequest request) {
+    public void onOpen(Session session) {
         this.session = session;
         webSocketSet.add(this);     //加入set中
         addOnlineCount();           //在线数加1
-        System.out.println("有新连接加入！当前在线人数为" + getOnlineCount()+request.getRemoteAddr());
+        System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
         try {
-        	
             sendMessage("有人加入了谈话");
         } catch (IOException e) {
             System.out.println("IO异常");
