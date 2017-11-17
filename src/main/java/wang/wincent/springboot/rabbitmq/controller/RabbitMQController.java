@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import wang.wincent.springboot.rabbitmq.fanoutexchange.FanoutExchangeSender;
 import wang.wincent.springboot.rabbitmq.manytomany.ManyToManySender;
 import wang.wincent.springboot.rabbitmq.manytomany.ManyToManySender2;
 import wang.wincent.springboot.rabbitmq.onetomany.OneToManySender;
@@ -33,6 +34,9 @@ public class RabbitMQController {
 	
 	@Autowired
     private TopicExchangeSender topicExchangeSender;
+	
+	@Autowired
+    private FanoutExchangeSender fanoutExchangeSender;
 	
 	/**
 	 * one to one
@@ -73,6 +77,14 @@ public class RabbitMQController {
     @GetMapping("/topicexchange/send")
     public void topicExchange() {
     	topicExchangeSender.send();
+    }
+    
+    /**
+     * Fanout Exchange 
+     */
+    @GetMapping("/fanoutexchange/send")
+    public void fanoutExchange() {
+    	fanoutExchangeSender.send();
     }
     
 }
