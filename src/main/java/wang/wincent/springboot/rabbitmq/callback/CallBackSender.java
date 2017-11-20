@@ -6,7 +6,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class CallBackSender  implements  RabbitTemplate.ConfirmCallback{
+public class CallBackSender  implements  RabbitTemplate.ConfirmCallback {
 	
 	@Autowired
     private RabbitTemplate rabbitTemplatenew;
